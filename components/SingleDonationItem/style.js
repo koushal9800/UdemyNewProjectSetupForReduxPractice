@@ -9,14 +9,14 @@ const style = StyleSheet.create({
   badge: {
     position: 'absolute',
     zIndex: 1,
-    top: verticalScale(13),
-    left: horizontalScale(10),
+    top: 13,
+    left: 10,
   },
   donationInformation: {
-    marginTop: verticalScale(16),
+    marginTop: 16,
   },
   price: {
-    marginTop: verticalScale(5),
+    marginTop: 5,
   },
 });
 

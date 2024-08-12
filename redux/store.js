@@ -5,9 +5,13 @@ import {logger} from 'redux-logger'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persistStore, persistReducer } from "redux-persist";
 import { version } from "react";
+import Categories from "./reducer/Categories";
+import Donations from "./reducer/Donation";
 
 const rootReducer = combineReducers({
-    user:User
+    user:User,
+    categories: Categories,
+    donations: Donations
 })
 const configuration = {
     key:'root',
@@ -20,9 +24,10 @@ const store = configureStore({
     middleware: getDefaultMiddleware => {
         return getDefaultMiddleware({
             serializableCheck: false
-        }).concat(logger)
+        })
     }
 });
 
 export default store;
 export const persiststor= persistStore(store)
+persiststor.purge()

@@ -19,7 +19,7 @@ const Home = () => {
 
   const user = useSelector(state => state.user)
   const categories = useSelector(state => state.categories)
-  const donations = useSelector(state=>state.donations)
+  const donations = useSelector(state => state.donations)
   const dispatch = useDispatch()
   dispatch(resetInitialState())
 
@@ -29,28 +29,28 @@ const Home = () => {
   const [isLoadingCategories, setIsLoadingCategories] = useState(false)
   const categoryPageSize = 4
 
-  useEffect(()=>{
+  useEffect(() => {
     const items = donations.items
-   const filteredItems = items.filter(value => 
+    const filteredItems = items.filter(value =>
 
-    value.categoryIds.includes(categories.selectedCategoryId)
-   )
-   setDonationItems(filteredItems)
-  }, [categories.selectedCategoryId] )
+      value.categoryIds.includes(categories.selectedCategoryId)
+    )
+    setDonationItems(filteredItems)
+  }, [categories.selectedCategoryId])
 
-useEffect(() => {
-  setIsLoadingCategories(true)
-  setCategoryList(pagination(categories.categories, categoryPage, categoryPageSize));
-setCategoryPage(prev => prev + 1)
-setIsLoadingCategories(false)
-},[] )
+  useEffect(() => {
+    setIsLoadingCategories(true)
+    setCategoryList(pagination(categories.categories, categoryPage, categoryPageSize));
+    setCategoryPage(prev => prev + 1)
+    setIsLoadingCategories(false)
+  }, [])
 
   const pagination = (items, pageNumber, pageSize) => {
-    const startIndex = (pageNumber -1 ) * pageSize
+    const startIndex = (pageNumber - 1) * pageSize
     const endIndex = startIndex + pageSize
-    if(startIndex >= items.length){
+    if (startIndex >= items.length) {
       return []
-    } 
+    }
     return items.slice(startIndex, endIndex)
   }
 
@@ -89,20 +89,20 @@ setIsLoadingCategories(false)
           </View>
 
           <FlatList data={categoryList}
-          onEndReachedThreshold={0.5}
-          onEndReached={()=>{
-if (isLoadingCategories) {
-  return;
-}
+            onEndReachedThreshold={0.5}
+            onEndReached={() => {
+              if (isLoadingCategories) {
+                return;
+              }
 
-            setIsLoadingCategories(true)
-            let newData = pagination(categories.categories, categoryPage, categoryPageSize)
-            if(newData.length>0){
-              setCategoryList(prevState => [...prevState, ...newData])
-              setCategoryPage(prevState => prevState + 1 )
-            }
-            setIsLoadingCategories(false)
-          }}
+              setIsLoadingCategories(true)
+              let newData = pagination(categories.categories, categoryPage, categoryPageSize)
+              if (newData.length > 0) {
+                setCategoryList(prevState => [...prevState, ...newData])
+                setCategoryPage(prevState => prevState + 1)
+              }
+              setIsLoadingCategories(false)
+            }}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) =>
@@ -116,6 +116,16 @@ if (isLoadingCategories) {
           />
 
         </View>
+        {donationItems.length > 0 &&
+          <View style={{ marginLeft: 24, marginTop: 20 }} >
+            {donationItems.map(value => <SingleDonationItem key={value.donationItemId}
+              price={parseFloat(value.price)}
+              badgeTitle={categories.categories.filter(val => val.categoryId === categories.selectedCategoryId)[0].name}
+              uri={value.image}
+              donationTitle={value.name}
+            />)}
+          </View>
+        }
 
       </ScrollView>
     </SafeAreaView>

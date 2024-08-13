@@ -14,6 +14,7 @@ import { updateFirstName, resetInitialState } from "../../redux/reducer/User";
 import { updateSelectedCategoryId } from "../../redux/reducer/Categories";
 import { updateSelectedDonationId } from "../../redux/reducer/Donation";
 import { Routes } from "../../navigation/Routes";
+import { logOut } from "../../api/user";
 
 
 
@@ -23,7 +24,8 @@ const Home = ({navigation}) => {
   const categories = useSelector(state => state.categories)
   const donations = useSelector(state => state.donations)
   const dispatch = useDispatch()
-  dispatch(resetInitialState())
+  // dispatch(resetInitialState())
+  console.log(user);
 
   const [donationItems, setDonationItems] = useState([])
   const [categoryPage, setCategoryPage] = useState(1)
@@ -65,9 +67,15 @@ const Home = ({navigation}) => {
         <View style={styles.header} >
           <View  >
             <Text style={styles.headerIntroText} >Hello,</Text>
-            <Header title={user.firstName + ' ' + user.lastName[0]} types={1} />
+            <Header title={user.displayName} types={1} />
           </View>
           <Image source={{ uri: user.profileImage }} style={styles.profileImage} resizeMode="contain" />
+          <Pressable onPress={async ()=> {
+            dispatch(resetInitialState())
+            await logOut()
+            } } >
+            <Header title={'Log out'} />
+          </Pressable>
 
         </View>
 
@@ -82,6 +90,8 @@ const Home = ({navigation}) => {
             style={{ width: '100%', height: 160, marginTop: 20 }}
           />
 
+          
+
         </View>
 
         <View style={{ marginLeft: 24, marginTop: 20 }} >
@@ -89,6 +99,8 @@ const Home = ({navigation}) => {
           <View style={{ marginBottom: 12 }} >
             <Header title="Select Category" types={2} />
           </View>
+
+
 
           <FlatList data={categoryList}
             onEndReachedThreshold={0.5}

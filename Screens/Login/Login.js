@@ -6,6 +6,8 @@ import Header from "../../components/Header/Header";
 import Button from "../../components/Button/Button";
 import { Routes } from "../../navigation/Routes";
 import { loggingUser } from "../../api/user";
+import { useDispatch } from "react-redux";
+import { logIn, resetInitialState } from "../../redux/reducer/User";
 
 
 const Login = ({navigation}) => {
@@ -13,6 +15,10 @@ const Login = ({navigation}) => {
     const [password, setPassword] = useState('')
     const [success, setSuccess] = useState('')
     const [error, setError] = useState('')
+
+const dispatch = useDispatch()
+// dispatch(resetInitialState())
+
     return (
         <SafeAreaView style={{ backgroundColor:'#fff', flex:1, }} >
             <ScrollView showsVerticalScrollIndicator={false}  contentContainerStyle={{ marginHorizontal:24,flex:1,justifyContent:'center'  }} >
@@ -36,6 +42,7 @@ const Login = ({navigation}) => {
                     }
                     else {
                         setError('')
+                        dispatch(logIn(user.data))
                         navigation.navigate(Routes.Home)
                     }
                     }} />

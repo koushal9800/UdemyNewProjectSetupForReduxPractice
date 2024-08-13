@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "848935554856",
+    "project_id": "donation-application-89152",
+    "storage_bucket": "donation-application-89152.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:848935554856:android:a2021921a73721d7758a1d",
+        "android_client_info": {
+          "package_name": "com.reduxtoolkitproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACMGFWI6DNpZnCn2nnxb9-JC6wQhP4fHg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

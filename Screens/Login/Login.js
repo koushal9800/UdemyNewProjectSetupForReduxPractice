@@ -5,11 +5,14 @@ import Input from "../../components/Input/Input";
 import Header from "../../components/Header/Header";
 import Button from "../../components/Button/Button";
 import { Routes } from "../../navigation/Routes";
+import { loggingUser } from "../../api/user";
 
 
 const Login = ({navigation}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [success, setSuccess] = useState('')
+    const [error, setError] = useState('')
     return (
         <SafeAreaView style={{ backgroundColor:'#fff', flex:1, }} >
             <ScrollView showsVerticalScrollIndicator={false}  contentContainerStyle={{ marginHorizontal:24,flex:1,justifyContent:'center'  }} >
@@ -26,7 +29,16 @@ const Login = ({navigation}) => {
             </View>
 
             <View>
-                <Button title={"Login"} />
+                <Button title={"Login"}  onPress={async ()=> {
+                 let user =   await loggingUser(email, password)
+                    if(!user.status){
+                        setError(user.error)
+                    }
+                    else {
+                        setError('')
+                        navigation.navigate(Routes.Home)
+                    }
+                    }} />
             </View>
 
             <Pressable style={{ alignItems:'center' }}  onPress={()=> navigation.navigate(Routes.Registration) } >

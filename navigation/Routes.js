@@ -1,3 +1,6 @@
 export const Routes = {
-    Home:'Home'
+    Home:'Home',
+    SingleDonationItem:'SingleDonationItem',
+    Login:'Login',
+    Registration:'Registration'
 }
